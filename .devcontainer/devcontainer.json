@@ -1,22 +1,7 @@
 {
-  "name": "Codespace Desktop (noVNC)",
-  "build": { "dockerfile": "Dockerfile" },
-
-  "features": {
-    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
-  },
-
   "forwardPorts": [6080],
   "portsAttributes": {
-    "6080": { "label": "NoVNC Desktop", "onAutoForward": "openBrowser" }
+    "6080": { "label": "noVNC (Magic) Desktop", "onAutoForward": "openBrowser" }
   },
-
-  "overrideCommand": false,
-  "remoteUser": "vscode",
-
-  "containerEnv": {
-    "DISPLAY": ":1"
-  },
-
-  "postCreateCommand": "sudo /usr/bin/supervisord -c /etc/supervisor/supervisord.conf"
+  "containerEnv": { "DISPLAY": ":1" }
 }
