@@ -1,12 +1,5 @@
-FROM mcr.microsoft.com/devcontainers/base:ubuntu
+FROM mcr.microsoft.com/devcontainers/base:jammy
 
-RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y \
-    xfce4 \
-    xfce4-goodies \
-    x11-apps \
-    novnc \
-    websockify \
-    tigervnc-standalone-server \
-    tigervnc-common \
-    && apt-get clean
+RUN apt-get update && apt-get install -y \
+    xvfb x11vnc novnc websockify xfce4 xfce4-terminal \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
