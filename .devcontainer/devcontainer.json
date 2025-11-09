@@ -3,13 +3,12 @@
   "build": {
     "dockerfile": "Dockerfile"
   },
-  "runArgs": [
-    "--env", "DISPLAY=:1"
-  ],
-  "postCreateCommand": "tightvncserver :1 && websockify 6080 --web=/usr/share/novnc 5901",
-  "forwardPorts": [
-    6080
-  ],
+  "runArgs": ["--env", "DISPLAY=:1"],
+  "postCreateCommand": "mkdir -p ~/.vnc && echo test123 | vncpasswd -f > ~/.vnc/passwd && chmod 600 ~/.vnc/passwd",
+  "onCreateCommand": "tightvncserver :1 -geometry 1360x768 -depth 24",
+  "forwardPorts": [6080],
+  "overrideCommand": false,
+  "postStartCommand": "websockify --web=/usr/share/novnc 6080 localhost:5901 &",
   "customizations": {
     "vscode": {
       "extensions": ["ms-vscode.cpptools"]
