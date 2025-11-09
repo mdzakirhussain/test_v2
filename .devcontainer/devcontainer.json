@@ -1,17 +1,17 @@
 {
-  "name": "Codespace with GUI",
+  "name": "GUI Codespace",
   "build": {
     "dockerfile": "Dockerfile"
   },
+
   "runArgs": ["--env", "DISPLAY=:1"],
+
+  "initializeCommand": "chmod +x .devcontainer/start-vnc.sh",
+
   "postCreateCommand": "mkdir -p ~/.vnc && echo test123 | vncpasswd -f > ~/.vnc/passwd && chmod 600 ~/.vnc/passwd",
-  "onCreateCommand": "tightvncserver :1 -geometry 1360x768 -depth 24",
+
+  "postStartCommand": "/bin/bash .devcontainer/start-vnc.sh",
+
   "forwardPorts": [6080],
-  "overrideCommand": false,
-  "postStartCommand": "websockify --web=/usr/share/novnc 6080 localhost:5901 &",
-  "customizations": {
-    "vscode": {
-      "extensions": ["ms-vscode.cpptools"]
-    }
-  }
+  "overrideCommand": false
 }
