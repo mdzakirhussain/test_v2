@@ -15,7 +15,7 @@
 
   "overrideCommand": false,
   "remoteUser": "vscode",
-  "containerEnv": { "DISPLAY": ":1" },
+  "containerEnv": { "DISPLAY": ":1" }
 
-  "postCreateCommand": "bash .devcontainer/setup.sh"
+
 }
