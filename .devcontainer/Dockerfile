@@ -4,8 +4,9 @@ RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
     xfce4 \
     xfce4-goodies \
-    tightvncserver \
+    x11-apps \
     novnc \
     websockify \
-    x11-apps \
+    tigervnc-standalone-server \
+    tigervnc-common \
     && apt-get clean
