@@ -1,11 +1,16 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -euo pipefail
 
-# Kill previous VNC if container restarted
-pkill -f "Xtigervnc" || true
-pkill -f "websockify" || true
+export DISPLAY="${DISPLAY:-:1}"
 
-# Start VNC Server
-Xtigervnc :1 -geometry 1360x768 -depth 24 -rfbauth ~/.vnc/passwd &
+mkdir -p /tmp/.X11-unix && chmod 1777 /tmp/.X11-unix || true
 
-# Start noVNC websocket bridge
-websockify --web=/usr/share/novnc 6080 localhost:5901 &
+pgrep Xvfb >/dev/null || Xvfb :1 -screen 0 1600x900x24 &
+
+pgrep -f xfce4-session >/dev/null || (nohup startxfce4 >/tmp/xfce.log 2>&1 &)
+
+pgrep x11vnc >/dev/null || x11vnc -display :1 -forever -shared -rfbport 5901 -nopw -listen 0.0.0.0 &
+
+pgrep -f "websockify .*6080" >/dev/null || websockify --web=/usr/share/novnc 0.0.0.0:6080 localhost:5901 &
+
+exit 0
