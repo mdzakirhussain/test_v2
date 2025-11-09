@@ -1,17 +1,16 @@
 {
-  "name": "GUI Codespace",
+  "name": "Codespace GUI (browser VNC)",
   "build": {
     "dockerfile": "Dockerfile"
   },
 
-  "runArgs": ["--env", "DISPLAY=:1"],
-
-  "initializeCommand": "chmod +x .devcontainer/start-vnc.sh",
-
-  "postCreateCommand": "mkdir -p ~/.vnc && echo test123 | vncpasswd -f > ~/.vnc/passwd && chmod 600 ~/.vnc/passwd",
-
-  "postStartCommand": "/bin/bash .devcontainer/start-vnc.sh",
-
   "forwardPorts": [6080],
-  "overrideCommand": false
+  "portsAttributes": {
+    "6080": { "label": "Desktop (noVNC)", "onAutoForward": "openBrowser" }
+  },
+
+  "remoteUser": "vscode",
+  "overrideCommand": false,
+
+  "postCreateCommand": "bash .devcontainer/start-vnc.sh"
 }
